@@ -5,6 +5,7 @@ import Image from "next/image";
 
 interface AvatarProps{
     user?:User;
+    children?:React.ReactNode
 }
 
 const Avatar:React.FC<AvatarProps> = ({
