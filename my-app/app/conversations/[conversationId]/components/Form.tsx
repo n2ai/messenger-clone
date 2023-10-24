@@ -6,6 +6,8 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import axios from "axios"
 import { HiPhoto } from "react-icons/hi2"
 import { HiPaperAirplane } from "react-icons/hi"
+import {CldUploadButton} from "next-cloudinary"
+import { Result } from "postcss"
 
 const Form = ()=>{
 
@@ -27,9 +29,22 @@ const Form = ()=>{
         })
     })
 
+    const handleUpload = (result:any)=>{
+        axios.post('/api/messages',{
+            image: result?.info?.secure_url,
+            conversationId
+        })
+    }
+
     return(
         <div className="py-4 px-4 bg-white border-t flex items-center gap-2 lg:gap-4 w-full">
-            <HiPhoto size={30} className="text-sky-500"/>
+            <CldUploadButton
+            options={{maxFiles:1}}
+            onUpload={handleUpload}
+            uploadPreset="sfristpz"
+            >
+                <HiPhoto size={30} className="text-sky-500"/>
+            </CldUploadButton>
             <form onSubmit={handleSubmit(onSubmit)} className="flex items-center gap-2 lg:gap-4 w-full">
                 <MessageInput id="message" register={register} errors={errors} required placeholder="Write a message"></MessageInput>
                 <button type="submit" className="rounded-full p-2 bg-sky-500 cursor-pointer hover:bg-sky-600 transition">
