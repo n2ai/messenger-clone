@@ -19,7 +19,7 @@ const Header:React.FC<HeaderProps> = ({
 })=>{
 
     const otherUser = useOtherUser(conversation)
-
+    const [drawerOpen]
     const statusText = useMemo(()=>{
         if (conversation.isGroup){
             return `${conversation.users.length} members`
